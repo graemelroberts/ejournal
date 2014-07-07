@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/ejournal/db" VERSION="20140321" COMMENT="XMLDB file for Moodle mod/ejournal"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+  <TABLES>
+    <TABLE NAME="ejournal" COMMENT="ejournal plugin">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>   
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/> 
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false"/> 
+        <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false"/> 
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/> 
+        <FIELD NAME="student_email_notn" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
+        <FIELD NAME="teacher_email_notn" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>                 
+	<FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>        
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for feedback"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="ejournal_details" COMMENT="ejournal details">
+      <FIELDS>
+       <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>       
+       <FIELD NAME="ejournal_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>       
+       <FIELD NAME="ereflect_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>       
+       <FIELD NAME="user_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>       
+       <FIELD NAME="student_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>              
+       <FIELD NAME="post_entry" TYPE="text" NOTNULL="true" SEQUENCE="false"/>               
+       <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+       <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" COMMENT="Primary key for feedback"/>
+	<KEY NAME="ejournal_id" TYPE="foreign" FIELDS="ejournal_id" REFTABLE="ejournal" REFFIELDS="id" COMMENT="The instance of ejournal this submission belongs to."/>        
+        <KEY NAME="ereflect_id" TYPE="foreign" FIELDS="ereflect_id" REFTABLE="ereflect" REFFIELDS="id" COMMENT="The instance of ereflect this submission belongs to."/> 
+        <KEY NAME="user_id" TYPE="foreign" FIELDS="user_id" REFTABLE="user" REFFIELDS="id" COMMENT="The user this submission belongs to."/>         
+        <KEY NAME="student_id" TYPE="foreign" FIELDS="student_id" REFTABLE="user" REFFIELDS="id" COMMENT="The user this submission belongs to."/>
+      </KEYS>
+    </TABLE> 
+  </TABLES>
+</XMLDB>
